@@ -6,16 +6,31 @@
 
 <script>
 	import homeHeader from '../../../components/home/homeHeader.vue';
+	import interfaces from '../../../utils/interfaces.js';
 	export default {
 		data() {
 			return {
 				showHeader: true, // 是否显示自定义表头
+				tabList: []
 			}
 		},
 		onLoad() {
 			// #ifdef APP-PLUS
 			this.showHeader = false;
 			// #endif
+			
+			this.getTabsData();
+		},
+		methods:{
+		getTabsData(){
+			uni.request({
+				url: interfaces.getTabList,
+				success: res => {
+					// console.log(res);
+					uni.tabList = res.data;
+				}
+			})
+		}	
 		},
 		components: {
 			homeHeader

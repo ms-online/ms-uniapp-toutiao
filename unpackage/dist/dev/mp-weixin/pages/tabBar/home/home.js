@@ -137,7 +137,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var homeHeader = function homeHeader() {__webpack_require__.e(/*! require.ensure | components/home/homeHeader */ "components/home/homeHeader").then((function () {return resolve(__webpack_require__(/*! ../../../components/home/homeHeader.vue */ 33));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -145,19 +145,35 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+var _interfaces = _interopRequireDefault(__webpack_require__(/*! ../../../utils/interfaces.js */ 40));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var homeHeader = function homeHeader() {__webpack_require__.e(/*! require.ensure | components/home/homeHeader */ "components/home/homeHeader").then((function () {return resolve(__webpack_require__(/*! ../../../components/home/homeHeader.vue */ 41));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   data: function data() {
     return {
-      showHeader: true // 是否显示自定义表头
-    };
+      showHeader: true, // 是否显示自定义表头
+      tabList: [] };
+
   },
   onLoad: function onLoad() {
 
 
 
+
+    this.getTabsData();
   },
+  methods: {
+    getTabsData: function getTabsData() {
+      uni.request({
+        url: _interfaces.default.getTabList,
+        success: function success(res) {
+          // console.log(res);
+          uni.tabList = res.data;
+        } });
+
+    } },
+
   components: {
     homeHeader: homeHeader } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 ],[[15,"common/runtime","common/vendor"]]]);
