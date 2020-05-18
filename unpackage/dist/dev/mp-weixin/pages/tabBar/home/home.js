@@ -137,7 +137,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -161,19 +161,18 @@ var _interfaces = _interopRequireDefault(__webpack_require__(/*! ../../../utils/
     this.getTabsData();
   },
   methods: {
-    getTabsData: function getTabsData() {
-      uni.request({
+    getTabsData: function getTabsData() {var _this = this;
+      this.request({
         url: _interfaces.default.getTabList,
         success: function success(res) {
-          // console.log(res);
-          uni.tabList = res.data;
+          // console.log(res.data);
+          _this.tabList = res.data;
         } });
 
     } },
 
   components: {
     homeHeader: homeHeader } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 ],[[15,"common/runtime","common/vendor"]]]);

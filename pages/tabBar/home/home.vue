@@ -23,12 +23,12 @@
 		},
 		methods:{
 		getTabsData(){
-			uni.request({
+			this.request({
 				url: interfaces.getTabList,
-				success: res => {
-					// console.log(res);
-					uni.tabList = res.data;
-				}
+				success: (res => {
+					// console.log(res.data);
+					this.tabList = res.data;
+				})
 			})
 		}	
 		},
