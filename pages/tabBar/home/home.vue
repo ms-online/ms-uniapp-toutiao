@@ -28,8 +28,12 @@
 			return {
 				showHeader: true, // 是否显示自定义表头
 				tabList: [],
-				tabIndex: 0,
+				tabIndex: 2,
 				toview:"", // scroll-view滚动到的视图id
+				page: 1,
+				size: 6,
+				newsid: '',
+				newsList: []
 			}
 		},
 		onLoad() {
@@ -38,6 +42,9 @@
 			// #endif
 
 			this.getTabsData();
+			setTimeout(() => {
+				this.loadTabData();
+			},1000)
 		},
 		methods: {
 			getTabsData() {
@@ -59,6 +66,18 @@
 				this.toview = this.tabList[this.tabIndex].id;
 				
 				// 加载内容数据
+			},
+			loadTabData(){
+				this.page = 1;
+				this.newsid = this.tabList.length > 0 ? this.tabList[this.tabIndex].newsid : "all";
+				console.log(this.newsid);
+				// 数据请求
+				this.request({
+					url: interfaces.getNewsList + `${this.newsid}/${this.page}/${this.size}`,
+					success: (res => {
+						console.log(res.data);
+					})
+				})
 			}
 		},
 		components: {
