@@ -1,6 +1,12 @@
 <template>
 	<view class="container">
 		<homeHeader v-if="showHeader"></homeHeader>
+		<!-- 分类导航 -->
+		<scroll-view scroll-x class="tab-bar" scroll-with-animation="true">
+			<view class="uni-tab" v-for="(tab,index) in tabList" :id="tab.id" :key="tab.id">
+				<text class="uni-tab-item">{{tab.name}}</text>
+			</view>
+		</scroll-view>
 	</view>
 </template>
 
@@ -26,7 +32,7 @@
 			this.request({
 				url: interfaces.getTabList,
 				success: (res => {
-					// console.log(res.data);
+					console.log(res.data);
 					this.tabList = res.data;
 				})
 			})
@@ -38,5 +44,31 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
+	.tab-bar{
+		background-color: #f4f5f6;
+		white-space: nowrap;
+		position: fixed;
+		z-index: 99;
+		top: 100upx;  
+		.uni-tab{
+			display: inline-block;
+			white-space: nowrap;
+			padding: 20upx 0 20upx 20upx;
+			.uni-tab-item{
+				padding: 0 20upx;
+				height: 52upx;
+				line-height: 52upx;
+				color: #505050;
+			}
+		}
+	}
+	
+	.tab-bar ::-webkit-scrollbar {
+		width: 0 !important;
+		display: none;
+		height: 0 !important;
+		-webkit-appearance: none;
+		background: transparent;
+	}
 </style>

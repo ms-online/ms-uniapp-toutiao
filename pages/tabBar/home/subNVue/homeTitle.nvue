@@ -24,7 +24,7 @@
 			init(){
 				uni.getSystemInfo({
 					success: (res => {
-						// console.log(res);
+						console.log(res.statusBarHeight);
 						this.statusBarHeight = res.statusBarHeight;
 					})
 				})
