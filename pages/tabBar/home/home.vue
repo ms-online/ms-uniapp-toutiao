@@ -2,7 +2,7 @@
 	<view class="container">
 		<homeHeader v-if="showHeader"></homeHeader>
 		<!-- 分类导航 -->
-		<scroll-view scroll-x class="tab-bar" scroll-with-animation="true">
+		<scroll-view :scroll-into-view="toview" scroll-x class="tab-bar" scroll-with-animation="true">
 			<view @tap="onTabTap(index)" class="uni-tab" v-for="(tab,index) in tabList" :id="tab.id" :key="tab.id">
 				<text :class="{'tab-cur': tabIndex == index}" class="uni-tab-item">{{tab.name}}</text>
 			</view>
@@ -12,7 +12,7 @@
 		<view class="place"></view>
 		
 		<!-- 内容 -->
-		<swiper class="tab-box" :duration="300">
+		<swiper @change="onSwiperChange" :current="tabIndex" class="tab-box" :duration="300">
 			<swiper-item class="swiper-item" v-for="(page,i) in tabList" :key="i">
 				{{i}}
 			</swiper-item>
@@ -29,6 +29,7 @@
 				showHeader: true, // 是否显示自定义表头
 				tabList: [],
 				tabIndex: 0,
+				toview:"", // scroll-view滚动到的视图id
 			}
 		},
 		onLoad() {
@@ -51,6 +52,13 @@
 			onTabTap(index){
 				// console.log(index);
 				this.tabIndex = index;
+			},
+			onSwiperChange(e){
+				// console.log(e);
+				this.tabIndex = e.target.current || e.detail.current;
+				this.toview = this.tabList[this.tabIndex].id;
+				
+				// 加载内容数据
 			}
 		},
 		components: {
