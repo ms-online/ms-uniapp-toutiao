@@ -14,7 +14,10 @@
 		<!-- 内容 -->
 		<swiper @change="onSwiperChange" :current="tabIndex" class="tab-box" :duration="300">
 			<swiper-item class="swiper-item" v-for="(page,i) in tabList" :key="i">
-				{{i}}
+				<view class="news-page" v-for="(newsItem,index) in newsList" :key="index">
+					<!-- 调用组件 -->
+					<newsCell :newsItem="newsItem"></newsCell>
+				</view>
 			</swiper-item>
 		</swiper>
 	</view>
@@ -23,6 +26,7 @@
 <script>
 	import homeHeader from '../../../components/home/homeHeader.vue';
 	import interfaces from '../../../utils/interfaces.js';
+	import newsCell from '../../../components/home/newsCell.vue';
 	export default {
 		data() {
 			return {
@@ -42,16 +46,16 @@
 			// #endif
 
 			this.getTabsData();
-			setTimeout(() => {
-				this.loadTabData();
-			},1000)
+			
+			this.loadTabData();
+			
 		},
 		methods: {
 			getTabsData() {
 				this.request({
 					url: interfaces.getTabList,
 					success: (res => {
-						console.log(res.data);
+						// console.log(res.data);
 						this.tabList = res.data;
 					})
 				})
@@ -76,12 +80,14 @@
 					url: interfaces.getNewsList + `${this.newsid}/${this.page}/${this.size}`,
 					success: (res => {
 						console.log(res.data);
+						this.newsList = res.data;
 					})
 				})
 			}
 		},
 		components: {
-			homeHeader
+			homeHeader,
+			newsCell
 		}
 	}
 </script>
