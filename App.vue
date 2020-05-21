@@ -17,6 +17,10 @@
 	/* #ifndef APP-NVUE */
 	@import "/static/iconfont/iconfont.css";
 	/* #endif */
+	
+	uni-page{
+		overflow: hidden;
+	}
 
 	.container {
 		width: 750upx;

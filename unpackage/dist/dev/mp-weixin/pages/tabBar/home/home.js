@@ -163,6 +163,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
+
 var _interfaces = _interopRequireDefault(__webpack_require__(/*! ../../../utils/interfaces.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var homeHeader = function homeHeader() {__webpack_require__.e(/*! require.ensure | components/home/homeHeader */ "components/home/homeHeader").then((function () {return resolve(__webpack_require__(/*! ../../../components/home/homeHeader.vue */ 33));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var newsCell = function newsCell() {__webpack_require__.e(/*! require.ensure | components/home/newsCell */ "components/home/newsCell").then((function () {return resolve(__webpack_require__(/*! ../../../components/home/newsCell.vue */ 40));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 {
@@ -170,31 +175,37 @@ var _interfaces = _interopRequireDefault(__webpack_require__(/*! ../../../utils/
     return {
       showHeader: true, // 是否显示自定义表头
       tabList: [],
-      tabIndex: 2,
+      tabIndex: 0,
       toview: "", // scroll-view滚动到的视图id
       page: 1,
-      size: 6,
+      size: 10,
       newsid: '',
-      newsList: [] };
+      newsList: [],
+      footerbottom: "0" };
 
   },
-  onLoad: function onLoad() {var _this = this;
+  onLoad: function onLoad() {
+
+
+
+
+
 
 
 
 
     this.getTabsData();
-    setTimeout(function () {
-      _this.loadTabData();
-    }, 1000);
+
+    this.loadTabData();
+
   },
   methods: {
-    getTabsData: function getTabsData() {var _this2 = this;
+    getTabsData: function getTabsData() {var _this = this;
       this.request({
         url: _interfaces.default.getTabList,
         success: function success(res) {
-          console.log(res.data);
-          _this2.tabList = res.data;
+          // console.log(res.data);
+          _this.tabList = res.data;
         } });
 
     },
@@ -209,7 +220,7 @@ var _interfaces = _interopRequireDefault(__webpack_require__(/*! ../../../utils/
 
       // 加载内容数据
     },
-    loadTabData: function loadTabData() {
+    loadTabData: function loadTabData() {var _this2 = this;
       this.page = 1;
       this.newsid = this.tabList.length > 0 ? this.tabList[this.tabIndex].newsid : "all";
       console.log(this.newsid);
@@ -218,6 +229,7 @@ var _interfaces = _interopRequireDefault(__webpack_require__(/*! ../../../utils/
         url: _interfaces.default.getNewsList + "".concat(this.newsid, "/").concat(this.page, "/").concat(this.size),
         success: function success(res) {
           console.log(res.data);
+          _this2.newsList = res.data;
         } });
 
     } },

@@ -7,19 +7,24 @@
 				<text :class="{'tab-cur': tabIndex == index}" class="uni-tab-item">{{tab.name}}</text>
 			</view>
 		</scroll-view>
-		
+
 		<!-- 占位 -->
 		<view class="place"></view>
-		
+
 		<!-- 内容 -->
 		<swiper @change="onSwiperChange" :current="tabIndex" class="tab-box" :duration="300">
 			<swiper-item class="swiper-item" v-for="(page,i) in tabList" :key="i">
-				<view class="news-page" v-for="(newsItem,index) in newsList" :key="index">
-					<!-- 调用组件 -->
-					<newsCell :newsItem="newsItem"></newsCell>
-				</view>
+				<scroll-view scroll-y class="panel-scroll-box">
+					<view class="news-page" v-for="(newsItem,index) in newsList" :key="index">
+						<!-- 调用组件 -->
+						<newsCell :newsItem="newsItem"></newsCell>
+					</view>
+				</scroll-view>
 			</swiper-item>
 		</swiper>
+
+		<!-- 底部占位 -->
+		<view :style="{height: footerbottom}"></view>
 	</view>
 </template>
 
@@ -32,12 +37,13 @@
 			return {
 				showHeader: true, // 是否显示自定义表头
 				tabList: [],
-				tabIndex: 2,
-				toview:"", // scroll-view滚动到的视图id
+				tabIndex: 0,
+				toview: "", // scroll-view滚动到的视图id
 				page: 1,
-				size: 6,
+				size: 10,
 				newsid: '',
-				newsList: []
+				newsList: [],
+				footerbottom: "0",
 			}
 		},
 		onLoad() {
@@ -45,10 +51,15 @@
 			this.showHeader = false;
 			// #endif
 
+			// #ifdef H5
+			this.footerbottom = document.getElementsByTagName("uni-tabbar")[0].offsetHeight + "px";
+			// console.log(this.footerbottom);
+			// #endif
+
 			this.getTabsData();
-			
+
 			this.loadTabData();
-			
+
 		},
 		methods: {
 			getTabsData() {
@@ -60,18 +71,18 @@
 					})
 				})
 			},
-			onTabTap(index){
+			onTabTap(index) {
 				// console.log(index);
 				this.tabIndex = index;
 			},
-			onSwiperChange(e){
+			onSwiperChange(e) {
 				// console.log(e);
 				this.tabIndex = e.target.current || e.detail.current;
 				this.toview = this.tabList[this.tabIndex].id;
-				
+
 				// 加载内容数据
 			},
-			loadTabData(){
+			loadTabData() {
 				this.page = 1;
 				this.newsid = this.tabList.length > 0 ? this.tabList[this.tabIndex].newsid : "all";
 				console.log(this.newsid);
@@ -112,7 +123,8 @@
 				line-height: 52upx;
 				color: #505050;
 			}
-			.tab-cur{
+
+			.tab-cur {
 				color: #f85959;
 			}
 		}
@@ -128,18 +140,25 @@
 
 
 	// 内容样式
-	.tab-box{
+	.tab-box {
 		flex: 1;
+
 		.swiper-item {
 			display: flex;
 			flex: 1;
 			flex-direction: column;
 			overflow: hidden;
+			
+			.panel-scroll-box{
+				height: 100%;
+			}
 		}
 	}
 
 	// 占位
-	.place{
+	.place {
 		height: 100upx;
 	}
+
+	
 </style>
