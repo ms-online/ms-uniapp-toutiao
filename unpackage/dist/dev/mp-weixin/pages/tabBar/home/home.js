@@ -100,7 +100,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components
+var components = {
+  loadMore: function() {
+    return __webpack_require__.e(/*! import() | components/loadMore/loadMore */ "components/loadMore/loadMore").then(__webpack_require__.bind(null, /*! @/components/loadMore/loadMore.vue */ 51))
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -168,7 +172,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _interfaces = _interopRequireDefault(__webpack_require__(/*! ../../../utils/interfaces.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var homeHeader = function homeHeader() {__webpack_require__.e(/*! require.ensure | components/home/homeHeader */ "components/home/homeHeader").then((function () {return resolve(__webpack_require__(/*! ../../../components/home/homeHeader.vue */ 33));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var newsCell = function newsCell() {__webpack_require__.e(/*! require.ensure | components/home/newsCell */ "components/home/newsCell").then((function () {return resolve(__webpack_require__(/*! ../../../components/home/newsCell.vue */ 40));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+var _interfaces = _interopRequireDefault(__webpack_require__(/*! ../../../utils/interfaces.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var homeHeader = function homeHeader() {__webpack_require__.e(/*! require.ensure | components/home/homeHeader */ "components/home/homeHeader").then((function () {return resolve(__webpack_require__(/*! ../../../components/home/homeHeader.vue */ 33));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var newsCell = function newsCell() {__webpack_require__.e(/*! require.ensure | components/home/newsCell */ "components/home/newsCell").then((function () {return resolve(__webpack_require__(/*! ../../../components/home/newsCell.vue */ 40));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var loadMore = function loadMore() {__webpack_require__.e(/*! require.ensure | components/loadMore/loadMore */ "components/loadMore/loadMore").then((function () {return resolve(__webpack_require__(/*! ../../../components/loadMore/loadMore.vue */ 51));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
 
 {
   data: function data() {
@@ -205,6 +213,9 @@ var _interfaces = _interopRequireDefault(__webpack_require__(/*! ../../../utils/
         url: _interfaces.default.getTabList,
         success: function success(res) {
           // console.log(res.data);
+          res.data.forEach(function (item) {
+            item.loadMoreStatus = 0;
+          });
           _this.tabList = res.data;
         } });
 
@@ -222,8 +233,13 @@ var _interfaces = _interopRequireDefault(__webpack_require__(/*! ../../../utils/
     },
     loadTabData: function loadTabData() {var _this2 = this;
       this.page = 1;
+      // 切换选项卡 初始化状态
+      if (this.tabList.length > 0) {
+        this.tabList[this.tabIndex].loadMoreStatus = 0;
+      }
+
       this.newsid = this.tabList.length > 0 ? this.tabList[this.tabIndex].newsid : "all";
-      console.log(this.newsid);
+      // console.log(this.newsid);
       // 数据请求
       this.request({
         url: _interfaces.default.getNewsList + "".concat(this.newsid, "/").concat(this.page, "/").concat(this.size),
@@ -232,11 +248,36 @@ var _interfaces = _interopRequireDefault(__webpack_require__(/*! ../../../utils/
           _this2.newsList = res.data;
         } });
 
+    },
+    loadMoreData: function loadMoreData() {var _this3 = this;
+      // 更改状态
+      this.tabList[this.tabIndex].loadMoreStatus = 1;
+      // 更改加载页数
+      this.page++;
+      // 数据请求
+      this.request({
+        url: _interfaces.default.getNewsList + "".concat(this.newsid, "/").concat(this.page, "/").concat(this.size),
+        success: function success(res) {
+          if (res.data.length > 0) {
+            res.data.forEach(function (news) {
+              _this3.newsList.push(news);
+            });
+            _this3.tabList[_this3.tabIndex].loadMoreStatus = 0;
+          } else {
+            // 返回数据为空 更改状态 没有更多数据
+            _this3.tabList[_this3.tabIndex].loadMoreStatus = 2;
+            return false;
+          }
+        } });
+
+
+
     } },
 
   components: {
     homeHeader: homeHeader,
-    newsCell: newsCell } };exports.default = _default;
+    newsCell: newsCell,
+    loadMore: loadMore } };exports.default = _default;
 
 /***/ }),
 /* 18 */,

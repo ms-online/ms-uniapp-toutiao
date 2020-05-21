@@ -14,11 +14,13 @@
 		<!-- 内容 -->
 		<swiper @change="onSwiperChange" :current="tabIndex" class="tab-box" :duration="300">
 			<swiper-item class="swiper-item" v-for="(page,i) in tabList" :key="i">
-				<scroll-view scroll-y class="panel-scroll-box">
+				<scroll-view @scrolltolower="loadMoreData" scroll-y class="panel-scroll-box">
 					<view class="news-page" v-for="(newsItem,index) in newsList" :key="index">
 						<!-- 调用组件 -->
 						<newsCell :newsItem="newsItem"></newsCell>
 					</view>
+					<!-- 上拉加载组件 -->
+					<loadMore :status="page.loadMoreStatus"></loadMore>
 				</scroll-view>
 			</swiper-item>
 		</swiper>
@@ -32,6 +34,8 @@
 	import homeHeader from '../../../components/home/homeHeader.vue';
 	import interfaces from '../../../utils/interfaces.js';
 	import newsCell from '../../../components/home/newsCell.vue';
+	import loadMore from '../../../components/loadMore/loadMore.vue';
+	
 	export default {
 		data() {
 			return {
@@ -67,6 +71,9 @@
 					url: interfaces.getTabList,
 					success: (res => {
 						// console.log(res.data);
+						res.data.forEach(item => {
+							item.loadMoreStatus = 0;
+						})
 						this.tabList = res.data;
 					})
 				})
@@ -84,8 +91,13 @@
 			},
 			loadTabData() {
 				this.page = 1;
+				// 切换选项卡 初始化状态
+				if(this.tabList.length > 0){
+					this.tabList[this.tabIndex].loadMoreStatus = 0;
+				}
+				
 				this.newsid = this.tabList.length > 0 ? this.tabList[this.tabIndex].newsid : "all";
-				console.log(this.newsid);
+				// console.log(this.newsid);
 				// 数据请求
 				this.request({
 					url: interfaces.getNewsList + `${this.newsid}/${this.page}/${this.size}`,
@@ -94,11 +106,36 @@
 						this.newsList = res.data;
 					})
 				})
+			},
+			loadMoreData(){
+				// 更改状态
+				this.tabList[this.tabIndex].loadMoreStatus = 1;
+				// 更改加载页数
+				this.page++;
+				// 数据请求
+				this.request({
+					url: interfaces.getNewsList + `${this.newsid}/${this.page}/${this.size}`,
+					success: (res => {
+						if(res.data.length > 0){
+							res.data.forEach(news => {
+								this.newsList.push(news);
+							})
+							this.tabList[this.tabIndex].loadMoreStatus = 0;
+						}else {
+							// 返回数据为空 更改状态 没有更多数据
+							this.tabList[this.tabIndex].loadMoreStatus = 2;
+							return false;
+						}
+					})
+				})
+				
+				
 			}
 		},
 		components: {
 			homeHeader,
-			newsCell
+			newsCell,
+			loadMore
 		}
 	}
 </script>

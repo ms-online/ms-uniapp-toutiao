@@ -1,0 +1,1 @@
+<view class="load-more"><view hidden="{{!(status===1)}}" class="load-icon iconfont"></view><text class="load-text">{{text[status]}}</text></view>
