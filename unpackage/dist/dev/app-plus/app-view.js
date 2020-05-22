@@ -271,7 +271,15 @@ var render = function() {
       _c("v-uni-view", { staticClass: _vm._$g(5, "sc"), attrs: { _i: 5 } }),
       _c(
         "pulldown",
-        { attrs: { _i: 6 } },
+        {
+          ref: "pdr",
+          attrs: { _i: 6 },
+          on: {
+            refresh: function($event) {
+              return _vm.$handleViewEvent($event)
+            }
+          }
+        },
         [
           _c(
             "v-uni-swiper",

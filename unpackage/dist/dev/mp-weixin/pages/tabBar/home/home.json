@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "首页",
   "usingComponents": {
+    "pulldown": "/components/pulldown/pulldown",
     "load-more": "/components/loadMore/loadMore",
     "home-header": "/components/home/homeHeader",
     "news-cell": "/components/home/newsCell"

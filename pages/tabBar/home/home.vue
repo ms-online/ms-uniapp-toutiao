@@ -12,7 +12,7 @@
 		<view class="place"></view>
 
 		<!-- 内容 -->
-		<pulldown>
+		<pulldown ref="pdr" :top="top" @refresh="loadTabData">
 			<swiper @change="onSwiperChange" :current="tabIndex" class="tab-box" :duration="300">
 				<swiper-item class="swiper-item" v-for="(page,i) in tabList" :key="i">
 					<scroll-view @scrolltolower="loadMoreData" scroll-y class="panel-scroll-box">
@@ -109,6 +109,7 @@
 					success: (res => {
 						// console.log(res.data);
 						this.newsList = res.data;
+						this.$refs.pdr && this.$refs.pdr.endPulldownRefresh();
 					})
 				})
 			},
