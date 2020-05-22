@@ -18,7 +18,7 @@
 					<scroll-view @scrolltolower="loadMoreData" scroll-y class="panel-scroll-box">
 						<view class="news-page" v-for="(newsItem,index) in newsList" :key="index">
 							<!-- 调用组件 -->
-							<newsCell :newsItem="newsItem"></newsCell>
+							<newsCell @cellTap="handleCellTap" :newsItem="newsItem"></newsCell>
 						</view>
 						<!-- 上拉加载组件 -->
 						<loadMore :status="page.loadMoreStatus"></loadMore>
@@ -51,7 +51,8 @@
 				newsid: '',
 				newsList: [],
 				footerbottom: "0",
-				top: 192 // 与顶部距离 单位upx
+				top: 192, // 与顶部距离 单位upx
+				navigateFlag: false,
 			}
 		},
 		onLoad() {
@@ -134,8 +135,21 @@
 						}
 					})
 				})
-
-
+			},
+			handleCellTap(article_url){
+				if(this.navigateFlag){
+					return;
+				}
+				
+				this.navigateFlag = true;
+				
+				uni.navigateTo({
+					url:`./article?url=${article_url}`
+				})
+				
+				setTimeout(() => {
+					this.navigateFlag = false;
+				},200)
 			}
 		},
 		components: {

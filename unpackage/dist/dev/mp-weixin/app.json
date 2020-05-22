@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/tabBar/home/home",
+    "pages/tabBar/home/article",
     "pages/tabBar/publish/publish",
     "pages/tabBar/video/video"
   ],
@@ -38,5 +39,5 @@
     ]
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap66.json"
+  "sitemapLocation": "sitemap5.json"
 }
