@@ -2,7 +2,7 @@
 	<view class="container publish-page">
 		<!-- 编辑区域 -->
 		<view class="edit">
-			<textarea placeholder="分享新鲜事" auto-height="true" cursor-spacing="500"></textarea>
+			<textarea v-model="editText" placeholder="分享新鲜事" auto-height="true" cursor-spacing="500"></textarea>
 		</view>
 		<!-- 添加图片 -->
 		<view class="imgs-wrap">
@@ -27,12 +27,24 @@
 </template>
 
 <script>
+	import interfaces from '../../../utils/interfaces.js';
 	export default {
 		data() {
 			return {
 				footerbottom: "0",
 				filesArray: [],
-				limit: 3
+				limit: 3,
+				editText: ''
+			}
+		},
+		onNavigationBarButtonTap(e) {
+			// console.log(e);
+			if(e.index == 1){
+				// 发布
+				this.upload();
+			}else if(e.index == 0){
+				// home 跳转
+				this.$router.push("/");
 			}
 		},
 		onLoad() {
@@ -70,6 +82,32 @@
 						if(res.confirm){
 							this.filesArray.splice(index,1);
 						}
+					}
+				})
+			},
+			upload(){
+				// 参数
+				let params = {
+					title: this.editText,
+					source: "米斯特吴",
+					comment_count: 10,
+					datetime: new Date()
+				}
+				
+				// 发起请求
+				this.request({
+					url: interfaces.postUpload,
+					method: "POST",
+					data: params,
+					success: res => {
+						// console.log(res);
+						uni.showToast({
+							title:"发布成功!",
+							icon: 'success'
+						})
+						
+						this.$router.push("/");
+						this.$forceUpdate();
 					}
 				})
 			}

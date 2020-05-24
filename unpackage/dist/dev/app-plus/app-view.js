@@ -2159,6 +2159,13 @@ var render = function() {
               "auto-height": "true",
               "cursor-spacing": "500",
               _i: 2
+            },
+            model: {
+              value: _vm._$g(2, "v-model"),
+              callback: function($$v) {
+                _vm.$handleVModelEvent(2, $$v)
+              },
+              expression: "editText"
             }
           })
         ],
@@ -2184,7 +2191,20 @@ var render = function() {
                         mode: "scaleToFill",
                         _i: "5-" + $30
                       }
-                    })
+                    }),
+                    _c(
+                      "v-uni-view",
+                      {
+                        staticClass: _vm._$g("6-" + $30, "sc"),
+                        attrs: { _i: "6-" + $30 },
+                        on: {
+                          click: function($event) {
+                            return _vm.$handleViewEvent($event)
+                          }
+                        }
+                      },
+                      [_vm._v("x")]
+                    )
                   ],
                   1
                 )
@@ -2193,8 +2213,8 @@ var render = function() {
           _c(
             "v-uni-view",
             {
-              staticClass: _vm._$g(6, "sc"),
-              attrs: { _i: 6 },
+              staticClass: _vm._$g(7, "sc"),
+              attrs: { _i: 7 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -2204,7 +2224,7 @@ var render = function() {
             [
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(7, "sc"), attrs: { _i: 7 } },
+                { staticClass: _vm._$g(8, "sc"), attrs: { _i: 8 } },
                 [_vm._v("")]
               )
             ],
@@ -2213,27 +2233,27 @@ var render = function() {
         ],
         2
       ),
-      _c("v-uni-view", { staticClass: _vm._$g(8, "sc"), attrs: { _i: 8 } }),
+      _c("v-uni-view", { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } }),
       _c(
         "v-uni-view",
         {
-          staticClass: _vm._$g(9, "sc"),
-          style: _vm._$g(9, "s"),
-          attrs: { _i: 9 }
+          staticClass: _vm._$g(10, "sc"),
+          style: _vm._$g(10, "s"),
+          attrs: { _i: 10 }
         },
         [
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(10, "sc"), attrs: { _i: 10 } },
+            { staticClass: _vm._$g(11, "sc"), attrs: { _i: 11 } },
             [
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(11, "sc"), attrs: { _i: 11 } },
+                { staticClass: _vm._$g(12, "sc"), attrs: { _i: 12 } },
                 [_vm._v("")]
               ),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(12, "sc"), attrs: { _i: 12 } },
+                { staticClass: _vm._$g(13, "sc"), attrs: { _i: 13 } },
                 [_vm._v("成都")]
               )
             ],
@@ -2334,7 +2354,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 13);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\n/**\n * 这里是uni-app内置的常用样式变量\n *\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\n *\n */\n/**\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\n *\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\n */\n/* 颜色变量 */\n/* 行为相关颜色 */\n/* 文字基本颜色 */\n/* 背景颜色 */\n/* 边框颜色 */\n/* 尺寸变量 */\n/* 文字尺寸 */\n/* 图片尺寸 */\n/* Border Radius */\n/* 水平间距 */\n/* 垂直间距 */\n/* 透明度 */\n/* 文章场景相关 */\n.publish-page {\n  padding: 30upx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  overflow-y: auto;\n}\n.publish-page .edit {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background: #fff;\n  padding-top: 20upx;\n}\n.publish-page .edit uni-textarea {\n  width: 100%;\n}\n.publish-page .imgs-wrap {\n  margin-top: 30upx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n  width: 100%;\n}\n.publish-page .imgs-wrap .file, .publish-page .imgs-wrap .add-img {\n  width: 32%;\n  border: 1px solid #ccc;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  margin-top: 20upx;\n  position: relative;\n  height: 240upx;\n  margin-left: 5upx;\n  -webkit-border-radius: 4upx;\n          border-radius: 4upx;\n}\n.publish-page .imgs-wrap .file uni-image {\n  width: 100%;\n  height: 100%;\n}\n.publish-page .imgs-wrap .add-img {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n          justify-content: center;\n}\n.publish-page .imgs-wrap .add-img .icon {\n  font-size: 80upx;\n  color: #999;\n}\n.publish-page .edit-tools {\n  position: fixed;\n  z-index: 99;\n  left: 0;\n  bottom: 0;\n  width: 100%;\n  background: #fff;\n  border-top: 0.5px solid #ccc;\n  height: 98upx;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  -webkit-box-pack: end;\n  -webkit-justify-content: flex-end;\n          justify-content: flex-end;\n}\n.publish-page .edit-tools .location {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  margin-right: 30upx;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  background: #f0f0f0;\n  -webkit-border-radius: 50upx;\n          border-radius: 50upx;\n  color: #666666;\n  font-size: 24upx;\n  padding: 0 20upx;\n  height: 51upx;\n}\n.publish-page .edit-tools .location .city {\n  margin-left: 10upx;\n}\n.publish-page .edit-tools .location .icon {\n  color: #999;\n}\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n/**\n * 这里是uni-app内置的常用样式变量\n *\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\n *\n */\n/**\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\n *\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\n */\n/* 颜色变量 */\n/* 行为相关颜色 */\n/* 文字基本颜色 */\n/* 背景颜色 */\n/* 边框颜色 */\n/* 尺寸变量 */\n/* 文字尺寸 */\n/* 图片尺寸 */\n/* Border Radius */\n/* 水平间距 */\n/* 垂直间距 */\n/* 透明度 */\n/* 文章场景相关 */\n.publish-page {\n  padding: 30upx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  overflow-y: auto;\n}\n.publish-page .edit {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background: #fff;\n  padding-top: 20upx;\n}\n.publish-page .edit uni-textarea {\n  width: 100%;\n}\n.publish-page .imgs-wrap {\n  margin-top: 30upx;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n          flex-wrap: wrap;\n  width: 100%;\n}\n.publish-page .imgs-wrap .file,\n.publish-page .imgs-wrap .add-img {\n  width: 32%;\n  border: 1px solid #ccc;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  margin-top: 20upx;\n  position: relative;\n  height: 240upx;\n  margin-left: 5upx;\n  -webkit-border-radius: 4upx;\n          border-radius: 4upx;\n}\n.publish-page .imgs-wrap .file {\n  position: relative;\n}\n.publish-page .imgs-wrap .file .del {\n  position: absolute;\n  width: 35rpx;\n  height: 35rpx;\n  background: #f56c6c;\n  color: #fff;\n  top: 0;\n  text-align: center;\n  right: 0;\n  line-height: 35rpx;\n  font-size: 30rpx;\n  z-index: 100;\n}\n.publish-page .imgs-wrap .file uni-image {\n  width: 100%;\n  height: 100%;\n}\n.publish-page .imgs-wrap .add-img {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n          justify-content: center;\n}\n.publish-page .imgs-wrap .add-img .icon {\n  font-size: 80upx;\n  color: #999;\n}\n.publish-page .edit-tools {\n  position: fixed;\n  z-index: 99;\n  left: 0;\n  bottom: 0;\n  width: 100%;\n  background: #fff;\n  border-top: 0.5px solid #ccc;\n  height: 98upx;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  -webkit-box-pack: end;\n  -webkit-justify-content: flex-end;\n          justify-content: flex-end;\n}\n.publish-page .edit-tools .location {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  margin-right: 30upx;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n  background: #f0f0f0;\n  -webkit-border-radius: 50upx;\n          border-radius: 50upx;\n  color: #666666;\n  font-size: 24upx;\n  padding: 0 20upx;\n  height: 51upx;\n}\n.publish-page .edit-tools .location .city {\n  margin-left: 10upx;\n}\n.publish-page .edit-tools .location .icon {\n  color: #999;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
