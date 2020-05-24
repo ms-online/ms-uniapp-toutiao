@@ -7,6 +7,8 @@ const interfaces = {
 	getNewsList: domain + 'api/profiles/home_news_list/',
 	// upload 发布
 	postUpload: domain + 'api/profiles/upload',
+	// 获取视频新闻信息
+	getVideoList: domain + 'api/profiles/video_list/'
 }
 
 module.exports = interfaces;
