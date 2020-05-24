@@ -6,7 +6,12 @@
 		</view>
 		<!-- 添加图片 -->
 		<view class="imgs-wrap">
-			<view class="add-img">
+			<!-- 显示图片 -->
+			<view class="file" v-if="filesArray.length > 0" v-for="(file,index) in filesArray" :key="index">
+				<image :src="file" mode="scaleToFill"></image>
+				<view class="del" @tap="deleleImg(index)">x</view>
+			</view>
+			<view class="add-img" @tap="insertImg">
 				<view class="icon iconfont">&#xe603;</view>
 			</view>
 		</view>
@@ -22,17 +27,52 @@
 </template>
 
 <script>
-	export default{
-		data(){
+	export default {
+		data() {
 			return {
-				footerbottom: "0"
+				footerbottom: "0",
+				filesArray: [],
+				limit: 3
 			}
 		},
-		onLoad(){
+		onLoad() {
 			// 兼容h5的底部菜单
 			// #ifdef H5
 			this.footerbottom = document.getElementsByTagName('uni-tabbar')[0].offsetHeight + "px";
 			// #endif
+		},
+		methods: {
+			insertImg() {
+				if (this.filesArray.length >= this.limit) {
+					uni.showToast({
+						title: '已达到最大上传数量',
+						icon: 'none'
+					})
+
+					return;
+				}
+
+				uni.chooseImage({
+					count: 3,
+					sizeType: ['original', "compressed"],
+					sourceType: ['album', 'camera'],
+					success: (res => {
+						// console.log(res);
+						this.filesArray = [...this.filesArray, ...res.tempFilePaths];
+					})
+				})
+			},
+			deleleImg(index){
+				uni.showModal({
+					title:'提示',
+					content: "确定要删除此项吗?",
+					success: res => {
+						if(res.confirm){
+							this.filesArray.splice(index,1);
+						}
+					}
+				})
+			}
 		}
 	}
 </script>
@@ -62,6 +102,7 @@
 			flex-wrap: wrap;
 			width: 100%;
 
+			& .file,
 			& .add-img {
 				width: 32%;
 				border: 1px solid #ccc;
@@ -72,6 +113,31 @@
 				margin-left: 5upx;
 				border-radius: 4upx;
 			}
+
+			& .file {
+				position: relative;
+
+				.del {
+					position: absolute;
+					width: 35rpx;
+					height: 35rpx;
+					background: #f56c6c;
+					color: #fff;
+					top: 0;
+					text-align: center;
+					right: 0;
+					line-height: 35rpx;
+					font-size: 30rpx;
+					z-index: 100;
+				}
+
+				image {
+					width: 100%;
+					height: 100%;
+				}
+			}
+
+
 
 			& .add-img {
 				display: flex;
