@@ -2,7 +2,7 @@
 	<view class="container">
 		<pulldownRefresh ref="pulldownRefresh" @refresh="initVideoData">
 			<scroll-view class="panel-scroll-box" scroll-y @scrolltolower="loadMoreData">
-				<view v-for="(videoItem,index) in videoList" :key="index">
+				<view @tap="handleVideoDetail(videoItem)" v-for="(videoItem,index) in videoList" :key="index">
 					<videoCell :videoItem="videoItem"></videoCell>
 				</view>
 				<!-- 上拉加载 -->
@@ -71,6 +71,11 @@
 							return false;
 						}
 					})
+				})
+			},
+			handleVideoDetail(videoItem){
+				uni.navigateTo({
+					url:"./videoDetail"
 				})
 			}
 		}

@@ -40,6 +40,12 @@
 			"style": {
 				"navigationBarTitleText": "视频"
 			}
+		},
+		{
+			"path": "pages/tabBar/video/videoDetail",
+			"style": {
+				"navigationBarTitleText": "今天头条"
+			}
 		}
 	],
 	"globalStyle": {
