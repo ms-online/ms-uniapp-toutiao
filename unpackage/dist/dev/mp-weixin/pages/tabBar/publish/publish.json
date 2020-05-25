@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "发布",
-  "usingComponents": {}
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "publish-header": "/components/home/publishHeader"
+  }
 }

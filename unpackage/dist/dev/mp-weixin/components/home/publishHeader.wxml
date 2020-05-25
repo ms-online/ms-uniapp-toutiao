@@ -1,0 +1,1 @@
+<view class="data-v-92e78bce"><view class="publish-header data-v-92e78bce"><text data-event-opts="{{[['tap',[['$emit',['handleCancel']]]]]}}" bindtap="__e" class="data-v-92e78bce">取消</text><text data-event-opts="{{[['tap',[['$emit',['handlePublish']]]]]}}" bindtap="__e" class="data-v-92e78bce">发布</text></view><view class="space data-v-92e78bce"></view></view>

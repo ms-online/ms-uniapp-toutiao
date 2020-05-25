@@ -1,26 +1,29 @@
 <template>
-	<view class="container publish-page">
-		<!-- 编辑区域 -->
-		<view class="edit">
-			<textarea v-model="editText" placeholder="分享新鲜事" auto-height="true" cursor-spacing="500"></textarea>
-		</view>
-		<!-- 添加图片 -->
-		<view class="imgs-wrap">
-			<!-- 显示图片 -->
-			<view class="file" v-if="filesArray.length > 0" v-for="(file,index) in filesArray" :key="index">
-				<image :src="file" mode="scaleToFill"></image>
-				<view class="del" @tap="deleleImg(index)">x</view>
+	<view class="container ">
+		<publishHeader v-if="showMP" @handlePublish="upload" @handleCancel="cancelClick"></publishHeader>
+		<view class="publish-page">
+			<!-- 编辑区域 -->
+			<view class="edit">
+				<textarea v-model="editText" placeholder="分享新鲜事" auto-height="true" cursor-spacing="500"></textarea>
 			</view>
-			<view class="add-img" @tap="insertImg">
-				<view class="icon iconfont">&#xe603;</view>
+			<!-- 添加图片 -->
+			<view class="imgs-wrap">
+				<!-- 显示图片 -->
+				<view class="file" v-if="filesArray.length > 0" v-for="(file,index) in filesArray" :key="index">
+					<image :src="file" mode="scaleToFill"></image>
+					<view class="del" @tap="deleleImg(index)">x</view>
+				</view>
+				<view class="add-img" @tap="insertImg">
+					<view class="icon iconfont">&#xe603;</view>
+				</view>
 			</view>
-		</view>
-		<!-- 工具栏 -->
-		<view class="edit-tools-flex"></view>
-		<view class="edit-tools" :style="{bottom: footerbottom}">
-			<view class="location">
-				<view class="icon iconfont">&#xe602;</view>
-				<view class="city">成都</view>
+			<!-- 工具栏 -->
+			<view class="edit-tools-flex"></view>
+			<view class="edit-tools" :style="{bottom: footerbottom}">
+				<view class="location">
+					<view class="icon iconfont">&#xe602;</view>
+					<view class="city">成都</view>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -28,23 +31,32 @@
 
 <script>
 	import interfaces from '../../../utils/interfaces.js';
+	import publishHeader from '../../../components/home/publishHeader.vue';
 	export default {
+		components: {
+			publishHeader
+		},
 		data() {
 			return {
 				footerbottom: "0",
 				filesArray: [],
 				limit: 3,
-				editText: ''
+				editText: '',
+				showMP: ""
 			}
 		},
 		onNavigationBarButtonTap(e) {
 			// console.log(e);
-			if(e.index == 1){
+			if (e.index == 1) {
 				// 发布
 				this.upload();
-			}else if(e.index == 0){
+			} else if (e.index == 0) {
 				// home 跳转
-				this.$router.push("/");
+
+				uni.switchTab({
+					url: "../home/home"
+				})
+
 			}
 		},
 		onLoad() {
@@ -52,8 +64,19 @@
 			// #ifdef H5
 			this.footerbottom = document.getElementsByTagName('uni-tabbar')[0].offsetHeight + "px";
 			// #endif
+			
+			// 兼容小程序
+			// #ifdef MP
+			this.showMP = true;
+			// #endif
 		},
 		methods: {
+			cancelClick(){
+				uni.switchTab({
+					url: "../home/home"
+				})
+				
+			},
 			insertImg() {
 				if (this.filesArray.length >= this.limit) {
 					uni.showToast({
@@ -74,18 +97,18 @@
 					})
 				})
 			},
-			deleleImg(index){
+			deleleImg(index) {
 				uni.showModal({
-					title:'提示',
+					title: '提示',
 					content: "确定要删除此项吗?",
 					success: res => {
-						if(res.confirm){
-							this.filesArray.splice(index,1);
+						if (res.confirm) {
+							this.filesArray.splice(index, 1);
 						}
 					}
 				})
 			},
-			upload(){
+			upload() {
 				// 参数
 				let params = {
 					title: this.editText,
@@ -93,7 +116,7 @@
 					comment_count: 10,
 					datetime: new Date()
 				}
-				
+
 				// 发起请求
 				this.request({
 					url: interfaces.postUpload,
@@ -102,12 +125,16 @@
 					success: res => {
 						// console.log(res);
 						uni.showToast({
-							title:"发布成功!",
+							title: "发布成功!",
 							icon: 'success'
 						})
-						
-						this.$router.push("/");
-						this.$forceUpdate();
+
+						// this.$router.push("/");
+						// this.$forceUpdate();
+
+						uni.switchTab({
+							url: "../home/home"
+						})
 					}
 				})
 			}
