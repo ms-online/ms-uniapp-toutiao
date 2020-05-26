@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/tabBar/home/home",
+    "pages/tabBar/home/article",
+    "pages/tabBar/publish/publish",
+    "pages/tabBar/video/video"
+  ],
+  "subPackages": [],
+  "window": {
+    "defaultTitle": "每日头条",
+    "titleBarColor": "#d43d3d",
+    "backgroundColor": "#FFFFFF"
+  },
+  "tabBar": {
+    "textColor": "#8F8F94",
+    "selectedColor": "#f33e54",
+    "backgroundColor": "#F8F8F8",
+    "items": [
+      {
+        "pagePath": "pages/tabBar/home/home",
+        "name": "首页",
+        "icon": "static/img/tabbar/home.png",
+        "activeIcon": "static/img/tabbar/homeactive.png"
+      },
+      {
+        "pagePath": "pages/tabBar/publish/publish",
+        "name": "发布",
+        "icon": "static/img/tabbar/add.png",
+        "activeIcon": "static/img/tabbar/addactive.png"
+      },
+      {
+        "pagePath": "pages/tabBar/video/video",
+        "name": "关注",
+        "icon": "static/img/tabbar/guanzhu.png",
+        "activeIcon": "static/img/tabbar/guanzhuactive.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

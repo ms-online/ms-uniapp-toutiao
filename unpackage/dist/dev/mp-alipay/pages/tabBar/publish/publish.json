@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "",
+  "usingComponents": {
+    "publish-header": "/components/home/publishHeader"
+  }
+}
